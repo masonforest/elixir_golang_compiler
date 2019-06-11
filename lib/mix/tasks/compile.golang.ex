@@ -20,12 +20,13 @@ defmodule Mix.Tasks.Compile.Golang do
   def compile_module({name, config}) do
     module_path = Keyword.get(config, :path, "native/#{name}")
     build_mode = Keyword.get(config, :mode, :release)
+    install_args = Keyword.get(config, :install_args, [])
     Mix.shell.info "Compiling golang module #{inspect name} (#{module_path})..."
     module_full_path = Path.expand(module_path, File.cwd!)
     target_dir = Keyword.get(config, :target_dir,
       Path.join([Mix.Project.build_path(), "golang_modules", Atom.to_string(name)]))
 
-    System.cmd(@command, [@build_command], [
+    System.cmd(@command, [@build_command] ++ install_args, [
       cd: module_full_path,
       stderr_to_stdout: true,
       env: [{"GOBIN", target_dir}],

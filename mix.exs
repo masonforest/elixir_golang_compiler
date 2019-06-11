@@ -7,7 +7,7 @@ defmodule GolangCompiler.MixProject do
       description: "Golang complier for mix",
       metadata: [
       ],
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.8",
       deps: deps(),
       package: package(),
